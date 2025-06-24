@@ -1,4 +1,3 @@
-{{ if eq .chezmoi.os "windows" }}
 using namespace System.Management.Automation
 using namespace System.Management.Automation.Language
 
@@ -1898,4 +1897,3 @@ filter __sing-box_escapeStringWithSpecialChars {
 }
 
 Register-ArgumentCompleter -CommandName 'sing-box' -ScriptBlock ${__sing_boxCompleterBlock}
-{{ end }}
