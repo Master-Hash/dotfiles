@@ -1,9 +1,13 @@
 README.md
 {{ if ne .chezmoi.os "linux" }}
-
+.config/bat/
+.config/go/
+.config/helix/
+.config/pip
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
 .wslconfig
 Documents/PowerShell/
+AppData/
 {{ end }}

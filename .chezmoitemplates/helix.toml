@@ -1,0 +1,5 @@
+theme = "catppuccin_macchiato"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
