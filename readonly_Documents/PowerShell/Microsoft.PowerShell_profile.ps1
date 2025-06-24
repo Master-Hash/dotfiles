@@ -56,43 +56,51 @@ return $out
 }
 # 不好用，算了
 
+if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") {
+    $MSYSTEM = "clangarm64"
+    $MUCRT = "ucrt64"
+}
+if ($env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
+    $MSYSTEM = "clang64"
+}
+
 Set-PSReadLineOption -EditMode Emacs
 $tmp_path = $env:Path
 if ($env:Path -match ";$") {
-    $env:Path = $env:Path + "C:\msys64\clang64\bin;C:\msys64\usr\bin" + ";"
+    $env:Path = $env:Path + "C:\msys64\${MSYSTEM}\bin;C:\msys64\usr\bin" + ";"
 }
 else {
-    $env:Path = $env:Path + ";C:\msys64\clang64\bin;C:\msys64\usr\bin" + ";"
+    $env:Path = $env:Path + ";C:\msys64\${MSYSTEM}\bin;C:\msys64\usr\bin" + ";"
 }
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 $env:Path = $tmp_path
 Set-Alias which "where.exe"
 Set-Alias grep Select-String
-Set-Alias gitui C:\msys64\clang64\bin\gitui.exe
-# Set-Alias edit C:\msys64\clang64\bin\edit.exe
-Set-Alias hx C:\msys64\clang64\bin\hx.exe
-Set-Alias wasm-objdump C:\msys64\clang64\bin\wasm-objdump.exe
-Set-Alias fortune C:\msys64\clang64\bin\fortune.exe
+Set-Alias gitui C:\msys64\${MSYSTEM}\bin\gitui.exe
+# Set-Alias edit C:\msys64\${MSYSTEM}\bin\edit.exe
+Set-Alias hx C:\msys64\${MSYSTEM}\bin\hx.exe
+Set-Alias wasm-objdump C:\msys64\${MSYSTEM}\bin\wasm-objdump.exe
+Set-Alias fortune C:\msys64\${MSYSTEM}\bin\fortune.exe
 function weather {
     Invoke-RestMethod "https://v2d.wttr.in?lang=zh"
 }
 function objdump {
-    C:\msys64\clang64\bin\llvm-objdump.exe -M intel $args;
+    & C:\msys64\${MSYSTEM}\bin\llvm-objdump.exe -M intel $args;
 }
 function tldr {
     C:\Users\hash\.cargo\bin\tldr.exe -L zh $args;
 }
 function clang-path {
     if ($env:Path -match ";$") {
-        $env:Path = $env:Path + "C:\msys64\clang64\bin;C:\msys64\usr\bin" + ";"
+        $env:Path = $env:Path + "C:\msys64\${MSYSTEM}\bin;C:\msys64\usr\bin" + ";"
     }
     else {
-        $env:Path = $env:Path + ";C:\msys64\clang64\bin;C:\msys64\usr\bin" + ";"
+        $env:Path = $env:Path + ";C:\msys64\${MSYSTEM}\bin;C:\msys64\usr\bin" + ";"
     }
 }
 function gcc-path {
     if ($env:Path -match ";$") {
-  $env:Path = $env:Path + "C:\msys64\ucrt64\bin;C:\msys64\usr\bin" + ";"
+        $env:Path = $env:Path + "C:\msys64\ucrt64\bin;C:\msys64\usr\bin" + ";"
     }
     else {
         $env:Path = $env:Path + ";C:\msys64\ucrt64\bin;C:\msys64\usr\bin" + ";"
@@ -100,11 +108,21 @@ function gcc-path {
 }
 #Set-Alias emacs "C:\msys64\ucrt64\bin\runemacs.exe"
 function emacs {
-    if ($args -contains "-nw") {
-        C:\msys64\ucrt64\bin\emacs.exe --dump-file "${env:APPDATA}/.emacs.d/emacs.pdmp" $args;
+    if ($env:PROCESSOR_ARCHITECTURE -eq "ARM64") {
+        if ($args -contains "-nw") {
+            C:\msys64\clangarm64\bin\emacs.exe --dump-file "${env:APPDATA}/.emacs.d/emacs.pdmp" $args;
+        }
+        else {
+            C:\msys64\clangarm64\bin\runemacs.exe --dump-file "${env:APPDATA}/.emacs.d/emacs.pdmp" $args;
+        }
     }
-    else {
-        C:\msys64\ucrt64\bin\runemacs.exe --dump-file "${env:APPDATA}/.emacs.d/emacs.pdmp" $args;
+    if ($env:PROCESSOR_ARCHITECTURE -eq "AMD64") {
+        if ($args -contains "-nw") {
+            C:\msys64\ucrt64\bin\emacs.exe --dump-file "${env:APPDATA}/.emacs.d/emacs.pdmp" $args;
+        }
+        else {
+            C:\msys64\ucrt64\bin\runemacs.exe --dump-file "${env:APPDATA}/.emacs.d/emacs.pdmp" $args;
+        }
     }
 }
 # function emacs-x { C:\msys64\ucrt64\bin\runemacs.exe $args; }
@@ -1302,8 +1320,8 @@ Register-ArgumentCompleter -Native -CommandName 'mdbook' -ScriptBlock {
 # hyfetch
 # neofetch
 # C:\Users\hash\Documents\fastfetch-windows-amd64\fastfetch.exe -c paleofetch.jsonc
-C:\msys64\clang64\bin\fastfetch.exe -c C:\msys64\clang64\share\fastfetch\presets\paleofetch.jsonc -l windows
-C:\msys64\clang64\bin\fortune.exe
+& C:\msys64\${MSYSTEM}\bin\fastfetch.exe -c C:\msys64\${MSYSTEM}\share\fastfetch\presets\paleofetch.jsonc -l windows
+& C:\msys64\${MSYSTEM}\bin\fortune.exe
 # $choices = "chinese", "song100", "tang300"
 # $choice = $choices | Get-Random
 # function fortune($Path) {
