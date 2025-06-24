@@ -1,0 +1,48 @@
+# Sample .bashrc for SUSE Linux
+# Copyright (c) SUSE Software Solutions Germany GmbH
+
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+#
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
+
+test -s ~/.alias && . ~/.alias || true
+
+alias where="which"
+alias python="python3"
+alias serve-lldb="lldb-server p --server --listen 0.0.0.0:31337"
+alias objdump="llvm-objdump -M intel"
+alias nasm="nasm -f elf64"
+alias serve-socat="TCP-LISTEN:8080,fork,reuseaddr TCP:10.4.0.1:80"
+alias tldr="tldr -L zh"
+alias edit="~/bin/edit"
+#alias curl="/home/hash/bin/curl"
+# export NPM_CONFIG_REGISTRY="https://registry.npmmirror.com"
+# export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+# export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+export PATH="${PATH}:/home/hash/.cargo/bin"
+# export AR=llvm-ar
+export CC=clang
+export CXX=clang++
+# export RANLIB=llvm-ranlib
+# export LD_PRELOAD=/usr/lib64/libmimalloc.so.2
+export ZYPP_PCK_PRELOAD=1
+export ZYPP_CURL2=1
+eval "$(fastly --completion-script-bash)"
+# . "/home/hash/.acme.sh/acme.sh.env"
+# https://gist.github.com/skarllot/2648493
+if [[ ${EUID} == 0 ]] ; then
+    PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '
+else
+    PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+fi
+# eval "$(fzf --bash)"
+source /usr/share/fzf/shell/key-bindings.bash
+source /usr/share/fzf/shell/completion.bash
+# https://web.archive.org/web/20090815205011/http://www.cuberick.com/2008/11/update-bash-history-in-realtime.html
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
