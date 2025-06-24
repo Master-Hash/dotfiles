@@ -1,7 +1,7 @@
 [build]
-{{- if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "amd64") }}
+{{- if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "amd64") }}
 target = "x86_64-unknown-linux-gnu"
-{{- else if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "arm64") }}
+{{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.arch "arm64") }}
 target = "aarch64-unknown-linux-gnu"
 {{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "amd64") }}
 target = "x86_64-pc-windows-gnullvm"
