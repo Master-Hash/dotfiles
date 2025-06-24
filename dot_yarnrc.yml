@@ -1,0 +1,12 @@
+enableTelemetry: false
+pnpEnableEsmLoader: true
+nodeLinker: pnp
+checksumBehavior: update
+#nodeLinker: pnpm
+npmRegistryServer: "https://registry.npmmirror.com"
+enableGlobalCache: true
+
+# packageExtensions:
+#   create-remix@*:
+#     dependencies:
+#       fs-extra: "latest"

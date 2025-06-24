@@ -1,0 +1,16 @@
+[wsl2]
+#kernel=C:\\Users\\hash\\Desktop\\bzImage
+guiApplications=false
+#kernelCommandLine=systemd.unified_cgroup_hierarchy=1 cgroup_no_v1=all
+#debugConsole=true
+nestedVirtualization=true
+
+[experimental]
+autoMemoryReclaim=gradual
+networkingMode=mirrored
+dnsTunneling=true
+firewall=true
+autoProxy=true
+sparseVhd=true
+#useWindowsDnsCache=true
+hostAddressLoopback=true

@@ -1,0 +1,48 @@
+[credential]
+	helper = manager-core
+[commit]
+	gpgsign = true
+[user]
+	email = hash@hash.moe
+	name = Master-Hash
+	signingkey = 2BB7465B2DC210E2
+[init]
+	defaultBranch = main
+[core]
+	autocrlf = input
+	safecrlf = warn
+	editor = edit
+	pager = bat -p
+[color]
+	ui = on
+	pager = false
+	diff = false
+[credential "helperselector"]
+	selected = manager-core
+#[http]
+#	proxy = http://localhost:7890
+#[https]
+#	proxy = http://localhost:7890
+[pack]
+	allowPackReuse = multi
+[gpg]
+{{- $osrelease := default "" (index .chezmoi.kernel "osrelease") }}
+
+{{- if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "amd64") }}
+	#program = "/mnt/c/msys64/clang64/bin/gpg.exe"
+	program = "/mnt/c/Program Files/GnuPG/bin/gpg.exe"
+{{- else if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "arm64") }}
+	program = "/mnt/c/msys64/clangarm64/bin/gpg.exe"
+{{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "amd64") }}
+	#program = "C:/msys64/clang64/bin/gpg.exe"
+	program = "C:/Program Files/GnuPG/bin/gpg.exe"
+{{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "arm64") }}
+	program = "C:/msys64/clangarm64/bin/gpg.exe"
+{{- else }}
+	program = "gpg"
+{{- end }}
+[diff]
+	external = difft
+[help]
+	format = web
+	browser = firefox
