@@ -26,21 +26,29 @@
 [pack]
 	allowPackReuse = multi
 [gpg]
-{{- $osrelease := default "" (index .chezmoi.kernel "osrelease") }}
-
-{{- if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "amd64") }}
+{{- if eq .chezmoi.os "linux" }}
+{{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+# WSL-specific code
+{{-     if eq .chezmoi.arch "amd64" }}
 	#program = "/mnt/c/msys64/clang64/bin/gpg.exe"
 	program = "/mnt/c/Program Files/GnuPG/bin/gpg.exe"
-{{- else if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "arm64") }}
+{{-     else if eq .chezmoi.arch "arm64" }}
 	program = "/mnt/c/msys64/clangarm64/bin/gpg.exe"
-{{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "amd64") }}
+{{-     else }}
+	program = "gpg"
+{{-     end }}
+{{-   end }}
+{{- else if eq .chezmoi.os "windows" }}
+{{-   if eq .chezmoi.arch "amd64" }}
 	#program = "C:/msys64/clang64/bin/gpg.exe"
 	program = "C:/Program Files/GnuPG/bin/gpg.exe"
-{{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "arm64") }}
+{{-   else if eq .chezmoi.arch "arm64" }}
 	program = "C:/msys64/clangarm64/bin/gpg.exe"
-{{- else }}
+{{-   else }}
 	program = "gpg"
+{{-   end }}
 {{- end }}
+
 [diff]
 	external = difft
 [help]
