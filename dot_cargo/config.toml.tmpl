@@ -1,0 +1,68 @@
+[build]
+{{- if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "amd64") }}
+target = "x86_64-unknown-linux-gnu"
+{{- else if and (contains "WSL2" $osrelease) (eq .chezmoi.arch "arm64") }}
+target = "aarch64-unknown-linux-gnu"
+{{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "amd64") }}
+target = "x86_64-pc-windows-gnullvm"
+{{- else if and (eq .chezmoi.os "windows") (eq .chezmoi.arch "arm64") }}
+target = "aarch64-pc-windows-gnullvm"
+{{- else }}
+{{- end }}
+# # rustflags = ["-Z", "threads=8"]
+
+[source.crates-io]
+# replace-with = 'tuna'
+replace-with = 'rsproxy'
+
+[source.tuna]
+registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+
+[source.rsproxy]
+registry = "sparse+https://rsproxy.cn/index/"
+
+# [rust]
+# control-flow-guard = true
+
+# [target.x86_64-unknown-linux-gnu]
+# linker = "clang"
+# rustflags = ["-C", "link-arg=-fuse-ld=mold", "-C", "target-cpu=native"]
+
+# [target.x86_64-pc-windows-gnu]
+# linker = "C:\\msys64\\ucrt64\\bin\\clang.exe"
+# rustflags = [
+#     "-Clink-arg=-fuse-ld=lld",
+#     "-Ctarget-cpu=native",
+#     "-Ccontrol-flow-guard",
+# ]
+
+# [target.x86_64-pc-windows-gnullvm]
+# linker = "C:\\msys64\\clang64\\bin\\clang.exe"
+# rustflags = [
+#     "-Clink-arg=-fuse-ld=lld",
+#     "-Ctarget-cpu=native",
+#     "-Ccontrol-flow-guard",
+# ]
+
+# [target.wasm32-unknown-unknown]
+# linker = "C:\\Users\\hash\\.rustup\\toolchains\\stable-x86_64-pc-windows-gnu\\lib\\rustlib\\x86_64-pc-windows-gnu\\bin\\rust-lld.exe"
+# linker = "C:\\msys64\\clang64\\bin\\clang.exe"
+# linker = "C:\\msys64\\clang64\\bin\\ld.lld.exe"
+# rustflags = ["-C", "target-feature=+simd128"]
+# rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
+# [target.wasm32-unknown-emscripten]
+# linker = "C:\\msys64\\clang64\\lib\\emscripten\\em++.bat"
+# rustflags = [
+#     "-C",
+#     "link-args=-sEXPORT_ES6=1 -sMODULARIZE=1 -sENVIRONMENT=web,worker -sSTRICT=1 -sFETCH=1 -sINVOKE_RUN=0 -sINITIAL_MEMORY=47185920 -sEXPORTED_FUNCTIONS=_runn -sEXPORTED_RUNTIME_METHODS=ccall,cwrap -sASSERTIONS",
+#     "-C",
+#     "target-feature=+simd128,+atomics,+bulk-memory",
+# ]
+
+# Other Interesting Unstable / Nightly Features
+# build-std
+# Cranelift Codegen
+
+# And bevy feature(not toggle here):
+# Multithread wasm
