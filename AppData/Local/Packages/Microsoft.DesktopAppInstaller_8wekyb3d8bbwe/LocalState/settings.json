@@ -1,0 +1,27 @@
+{
+    "$schema": "https://aka.ms/winget-settings.schema.json",
+
+    // For documentation on these settings, see: https://aka.ms/winget-settings
+    "source": {
+        "autoUpdateIntervalInMinutes": 60
+    },
+    "visual": {
+        "progressBar": "rainbow"
+    },
+    "installBehavior": {
+        "preferences": {
+            "scope": "machine",
+            "locale": [ "zh-CN" ]
+        }
+    },
+    "network": {
+        "downloader": "wininet"
+    },
+    "telemetry": {
+        "disable": true
+    },
+    "experimentalFeatures": {
+        "directMSI": true
+        // "pinning": true
+    }
+}
