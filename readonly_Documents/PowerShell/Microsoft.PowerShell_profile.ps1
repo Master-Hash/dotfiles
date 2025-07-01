@@ -77,10 +77,11 @@ $env:Path = $tmp_path
 Set-Alias which "where.exe"
 Set-Alias grep Select-String
 Set-Alias gitui C:\msys64\${MSYSTEM}\bin\gitui.exe
-# Set-Alias edit C:\msys64\${MSYSTEM}\bin\edit.exe
+Set-Alias edit C:\msys64\${MSYSTEM}\bin\edit.exe # 系统内置后干掉
 Set-Alias hx C:\msys64\${MSYSTEM}\bin\hx.exe
 Set-Alias wasm-objdump C:\msys64\${MSYSTEM}\bin\wasm-objdump.exe
 Set-Alias fortune C:\msys64\${MSYSTEM}\bin\fortune.exe
+Set-Alias ntldd C:\msys64\${MSYSTEM}\bin\ntldd.exe
 function weather {
     Invoke-RestMethod "https://v2d.wttr.in?lang=zh"
 }

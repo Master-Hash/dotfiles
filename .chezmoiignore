@@ -3,11 +3,14 @@ README.md
 .config/bat/
 .config/go/
 .config/helix/
-.config/pip
+.config/pip/
+.config/rclone/
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
 .wslconfig
 Documents/
+Downloads/
+Desktop/
 AppData/
 {{ end }}
