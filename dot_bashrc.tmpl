@@ -18,6 +18,12 @@
 # here, since multilingual X sessions would not work properly if LANG is over-
 # ridden in every subshell.
 
+{{     if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+# WSL-specific code
+# I believe it's safe...?
+export LANG=zh_CN.UTF-8
+{{     end }}
+
 test -s ~/.alias && . ~/.alias || true
 
 alias where="which"
