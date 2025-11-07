@@ -1,0 +1,7 @@
+[search]
+languages = ["zh", "en"]
+
+[updates]
+# sometimes I like to read the Italian description
+download_languages = ["en", "zh"]
+tls_backend = "native-tls"

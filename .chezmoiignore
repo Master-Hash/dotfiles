@@ -5,6 +5,7 @@ README.md
 .config/helix/
 .config/pip/
 .config/rclone/
+.config/tealdeer/
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}

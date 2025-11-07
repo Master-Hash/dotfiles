@@ -10,6 +10,7 @@
 * ~/.ssh/*.pem
 * ~/.gnupg
 * ~/age.pem
+* C:\msys64\home\
 * 两步认证的恢复密钥
 * 网络配置
 
