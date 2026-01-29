@@ -2,6 +2,12 @@
 
 我的 dotfiles 的一部分子集，由 [chezmoi](https://www.chezmoi.io/) 管理。
 
+> L'enfer, c'est les autres
+>
+> -- Sartre, [*Huis clos*](https://fr.wikipedia.org/wiki/Huis_clos_(Sartre)#%C2%AB_L'enfer_c'est_les_autres_%C2%BB)
+
+好吧萨特的原意是[他人的目光影响我的自由意志](https://www.zhihu.com/question/19622014/answer/12415055)，但是，配环境这事，就像房屋装修，“他人即地狱”也说得通。
+
 我看重 chezmoi 的跨平台能力。我主要采用的平台为 Windows 和 openSUSE WSL2，最近在玩票 Windows on ARM。
 
 ## 不由 chezmoi 管理的
@@ -29,7 +35,7 @@ Windows 有一大票环境变量、注册表、组策略、设置项、powercfg 
 
 我的代理软件配置由 OneDrive 加手动同步，不管理版本。
 
-2025年夏起，我结合使用 OpenVPN，sing-box 和 naïve。过去的 mihomo 配置存留作参考。
+2025年夏起，我结合使用 OpenVPN 和 sing-box。2025年冬起，sing-box 集成了 naïve 出站，我不再单独开 naïve 进程。过去的 mihomo 配置存留作参考。
 
 ----
 
